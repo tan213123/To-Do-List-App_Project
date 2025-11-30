@@ -47,44 +47,31 @@ function showTasks() {
     deleteAllBtn.classList.add("active");
     let newLiTag = "";
     listArray.forEach((element, index) => {
-        newLiTag += `<li draggable="true" data-index="${index}">${element}<span class="icon" onclick="deleteTask(${index})"><i class="fas fa-trash"></i> </span> </li>`;
+        newLiTag += `<li>${element}<span class="icon" onclick="deleteTask(${index})"><i class="fas fa-trash"></i> </span> </li>`;
     });
     todoList.innerHTML = newLiTag; //them li tag vao trong ul
     inputBox.value = ""; //xoa gia tri trong o input sau khi them cong viec vao danh sach
 
-    // Drag and drop events
-    const items = todoList.querySelectorAll("li");
-    let dragSrcIndex = null;
-    items.forEach(item => {
-        item.addEventListener("dragstart", function(e) {
-            dragSrcIndex = +this.getAttribute("data-index");
-            e.dataTransfer.effectAllowed = "move";
-            this.classList.add("dragging");
-        });
-        item.addEventListener("dragend", function(e) {
-            this.classList.remove("dragging");
-        });
-        item.addEventListener("dragover", function(e) {
-            e.preventDefault();
-            this.classList.add("dragover");
-        });
-        item.addEventListener("dragleave", function(e) {
-            this.classList.remove("dragover");
-        });
-        item.addEventListener("drop", function(e) {
-            e.preventDefault();
-            this.classList.remove("dragover");
-            const dropIndex = +this.getAttribute("data-index");
-            if (dragSrcIndex !== null && dragSrcIndex !== dropIndex) {
-                // Swap vị trí
-                const temp = listArray[dragSrcIndex];
-                listArray.splice(dragSrcIndex, 1);
-                listArray.splice(dropIndex, 0, temp);
-                localStorage.setItem("New Todo", JSON.stringify(listArray));
-                showTasks();
+    // Tích hợp SortableJS cho drag & drop trên mọi thiết bị
+    if (window.Sortable && !todoList.sortableInstance) {
+        todoList.sortableInstance = Sortable.create(todoList, {
+            animation: 150,
+            handle: 'li',
+            onEnd: function (evt) {
+                // Cập nhật lại thứ tự trong localStorage
+                let getLocalStorageData = localStorage.getItem("New Todo");
+                let listArray = getLocalStorageData ? JSON.parse(getLocalStorageData) : [];
+                const oldIndex = evt.oldIndex;
+                const newIndex = evt.newIndex;
+                if (oldIndex !== newIndex) {
+                    const movedItem = listArray.splice(oldIndex, 1)[0];
+                    listArray.splice(newIndex, 0, movedItem);
+                    localStorage.setItem("New Todo", JSON.stringify(listArray));
+                    showTasks();
+                }
             }
         });
-    });
+    }
 }
 function deleteTask(index) {
     let getLocalStorageData = localStorage.getItem("New Todo");
