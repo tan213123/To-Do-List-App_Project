@@ -8,123 +8,178 @@
 body {
     width: 100%;
     height: 100vh;
-    background-color: #98b5ff;
+    background: linear-gradient(135deg, #a8c0ff 0%, #f0eaff 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .wrapper {
     width: 100%;
-    height: 600px;
-    max-width: 450px;
-    margin: 120px auto;
-    background: #2e4997;
-    border-radius: 25px;
-    padding: 25px;
+    max-width: 400px;
+    min-height: 500px;
+    margin: 0 auto;
+    background: rgba(46, 73, 151, 0.95);
+    border-radius: 30px;
+    padding: 32px 28px 28px 28px;
+    box-shadow: 0 8px 32px 0 rgba(44, 62, 80, 0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 .wrapper header {
-    font-size: 35px;
-    font-weight: 600;
+    font-size: 2.2rem;
+    font-weight: 700;
     color: #fff;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 .wrapper .input{
     width: 100%;
-    height: 50px;
-    margin: 20px 0;
+    height: 52px;
+    margin: 18px 0 10px 0;
     display: flex;
+    gap: 8px;
 }
 .input input{
-    width: 85%;
+    flex: 1;
     height: 100%;
-    padding-left:15px;
-    font-size: 18px;
-    border: 1px solid #ccc;
+    padding: 0 16px;
+    font-size: 1.1rem;
+    border: none;
     outline: none;
-    border-radius: 8px;
+    border-radius: 10px;
+    background: #f7f7ff;
+    color: #2e4997;
+    box-shadow: 0 2px 8px rgba(46,73,151,0.08);
+    transition: box-shadow 0.2s;
+}
+.input input:focus {
+    box-shadow: 0 2px 12px rgba(46,73,151,0.18);
 }
 .input button{
-    width: 60px;
+    width: 52px;
     height: 100%;
     border: none;
     outline: none;
-    background: #ea05fe;
-    color: #fff;  
+    background: linear-gradient(135deg, #ecd6ee 60%, #7f53ff 100%);
+    color: #fff;
     cursor: pointer;
-    border-radius:3px ;
-    margin-left: 5px;
-    font-size: 22px;
-    font-weight: 300;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    font-weight: 500;
     opacity: 0.6;
     pointer-events: none;
+    box-shadow: 0 2px 8px rgba(122, 44, 246, 0.12);
+    transition: opacity 0.2s, box-shadow 0.2s;
 }
 .input button.active{
-   opacity: 1;
+    opacity: 1;
     pointer-events: auto;
+    box-shadow: 0 2px 12px rgba(122, 44, 246, 0.18);
+}
+.input button:hover {
+    opacity: 0.85;
 }
 .wrapper .h4{
-   margin-bottom: 20px;
-   color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 18px;
+    color: rgba(255, 255, 255, 0.7);
     letter-spacing: 1px;
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 .wrapper .todoList{
-    max-height: 350px;
+    max-height: 320px;
     overflow-y: auto;
+    margin-bottom: 10px;
+    overflow-x: hidden;
+    scrollbar-width: thin;
 }
+/* Làm đẹp thanh cuộn dọc cho Webkit */
+.wrapper .todoList::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+.wrapper .todoList::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #7f53ff 40%, #ea05fe 100%);
+    border-radius: 8px;
+}
+.wrapper .todoList::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Hide horizontal scrollbar for Webkit browsers */
+.wrapper .todoList::-webkit-scrollbar:horizontal {
+    display: none;
+}
+
 .todolist li{
     list-style: none;
-   position: relative;
-    width: 340px;
-    height: 60px;
-    background-color: #28116e;
-    color: #c6aac9;
-    padding: 0 15px; 
-    line-height: 60px;
-    border-radius: 20px;
-    margin-bottom: 8px;
-    font-size: 20px;
+    position: relative;
+    width: 100%;
+    min-height: 52px;
+    background: linear-gradient(135deg, #3a1c71 60%, #d3c5c7 100%);
+    color: #fff;
+    padding: 0 18px;
+    line-height: 52px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    font-size: 1.15rem;
     letter-spacing: 0.5px;
     cursor: default;
     overflow: hidden;
-
+    box-shadow: 0 2px 8px rgba(58,28,113,0.10);
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+.todolist li:hover {
+    box-shadow: 0 4px 16px rgba(58,28,113,0.18);
+    transform: translateY(-2px) scale(1.02);
 }
 .todolist li i{
     position: absolute;
-    right: -30px;
-    top: 30%;
-    transform: translateY(-50%,-50%);
-    font-size: 20px;
-    color: #ffffff;
+    right: -32px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #fff;
     cursor: pointer;
-    transition:all 0.3s ease;
+    transition: right 0.3s, color 0.2s;
+    padding: 6px;
+    border-radius: 50%;
 }
 .todolist li:hover i{
-    right:0px;
-
+    right: 10px;
+    background: rgba(255,255,255,0.12);
+    color: #702d57;
 }
 .wrapper .footer-text{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-top: 25px;
-
+    margin-top: 18px;
+    gap: 10px;
 }
 .footer span{
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 20px;
-    
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 .footer button{
-    padding: 6px 15px;
-    font-size: 18px;
+    padding: 7px 18px;
+    font-size: 1.1rem;
     border: none;
     outline: none;
-    background: #320136;
-    color: rgba(255, 255, 255, 0.5);  
+    background: linear-gradient(135deg, #320136 60%, #ea05fe 100%);
+    color: rgba(255, 255, 255, 0.8);
     cursor: pointer;
-    border-radius: 3px;
-     opacity: 0.6;
-    pointer-events: none;
+    border-radius: 8px;
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(50,1,54,0.10);
 }
 .footer button:hover{
-   opacity: 1;
-    pointer-events: auto;
+    opacity: 0.85;
+    box-shadow: 0 2px 12px rgba(50,1,54,0.18);
 }
